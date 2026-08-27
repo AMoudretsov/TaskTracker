@@ -1,1 +1,3 @@
-# TaskTracker
+# Repo Purpose
+
+Coding skills evaluation task. 
