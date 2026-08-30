@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TaskTracker.Core.Entities;
-using TaskTracker.Infrastructure.Common;
-using TaskTracker.Infrastructure.Extensions;
+using TaskTracker.Infrastructure.Db.Common;
+using TaskTracker.Infrastructure.Db.Extensions;
 
-namespace TaskTracker.Infrastructure.EntityTypeConfigurations;
+namespace TaskTracker.Infrastructure.Db.EntityTypeConfigurations;
 
 public class TaskItemEntityTypeConfiguration : IEntityTypeConfiguration<TaskItem>
 {

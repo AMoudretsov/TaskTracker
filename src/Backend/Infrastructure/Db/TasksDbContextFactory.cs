@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using TaskTracker.Infrastructure.Extensions;
+using TaskTracker.Infrastructure.Db.Extensions;
 
-namespace TaskTracker.Infrastructure;
+namespace TaskTracker.Infrastructure.Db;
 
 public class TasksDbContextFactory : IDesignTimeDbContextFactory<TasksDbContext>
 {

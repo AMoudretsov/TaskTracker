@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TaskTracker.Infrastructure.Common;
+using TaskTracker.Infrastructure.Db.Common;
 
-namespace TaskTracker.Infrastructure.Extensions;
+namespace TaskTracker.Infrastructure.Db.Extensions;
 
 public static class ModelBuilderExtensions
 {

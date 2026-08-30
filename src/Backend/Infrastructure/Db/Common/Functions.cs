@@ -1,4 +1,4 @@
-namespace TaskTracker.Infrastructure.Common;
+namespace TaskTracker.Infrastructure.Db.Common;
 
 public static class Functions
 {

@@ -1,0 +1,7 @@
+@host = https://localhost:5443
+
+# Returns task with given id
+GET {{host}}/tasks/1
+Accept: application/json
+
+###

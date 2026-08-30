@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskTracker.Core.Entities;
 
-namespace TaskTracker.Infrastructure.Seeding;
+namespace TaskTracker.Infrastructure.Db.Seeding;
 
 public static class TaskItemSeeding
 {

@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>TaskTracker.Core</RootNamespace>
+    <AssemblyName>TaskTracker.Core</AssemblyName>
   </PropertyGroup>
 
 </Project>

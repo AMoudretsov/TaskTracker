@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TaskTracker.Infrastructure.Extensions;
+namespace TaskTracker.Infrastructure.Db.Extensions;
 
-public static class ServiceColectionExtension
+public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddTasksDb(
         this IServiceCollection services,

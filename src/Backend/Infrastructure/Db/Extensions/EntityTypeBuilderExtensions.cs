@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using EFCore.NamingConventions.Internal;
 
-namespace TaskTracker.Infrastructure.Extensions;
+namespace TaskTracker.Infrastructure.Db.Extensions;
 
 public static class EntityTypeBuilderExtensions
 {

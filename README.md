@@ -20,11 +20,12 @@ $env:TASK_TRACKER_CONNECTIONSTRINGS__TASKSDB = "Host=localhost;Port=5432;Databas
 #### 2. Restore db schema and seed `task_item` table with test data:
 
 ```powershell
-cd <Repo Root>\src\Backend\Infrastructure
+cd <Repo Root>\src\Backend\Infrastructure\Db\
+dotnet restore
 dotnet ef database update
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Ignore following db migrations error. This is known behavior of the Npgsql EF Core provider. Rather than check existence of `__EFMigrationsHistory` table, it runs `SELECT` query against it and handles exception to create the table when it have cannot been found.
 ><!-- Hack to display text below in red color -->
 > ```diff
@@ -34,3 +35,16 @@ dotnet ef database update
 > - FROM tsk."__EFMigrationsHistory"
 > - ORDER BY migration_id;
 > ```
+
+#### 3. Generate development certificate for HTTPS if it does not yet exist:
+
+```powershell
+dotnet dev-certs https --trust
+```
+
+#### 4. Build and run tasks REST API:
+
+```powershell
+cd <Repo Root>\src\Backend\Api
+dotnet run --launch-profile Development
+```

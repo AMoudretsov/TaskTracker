@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using TaskTracker.Infrastructure.Common;
-using TaskTracker.Infrastructure.Seeding;
+using TaskTracker.Infrastructure.Db.Common;
+using TaskTracker.Infrastructure.Db.Seeding;
 
-namespace TaskTracker.Infrastructure.Extensions;
+namespace TaskTracker.Infrastructure.Db.Extensions;
 
 public static class DbContextOptionsBuilderExtensions
 {

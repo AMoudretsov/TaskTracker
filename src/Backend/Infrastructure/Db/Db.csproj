@@ -4,7 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>TaskTracker.Infrastructure</RootNamespace>
+    <RootNamespace>TaskTracker.Infrastructure.Db</RootNamespace>
+    <AssemblyName>TaskTracker.Infrastructure.Db</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Core\Core.csproj" />
   </ItemGroup>
 
 </Project>

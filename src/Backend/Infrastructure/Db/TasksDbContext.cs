@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using TaskTracker.Core.Entities;
-using TaskTracker.Infrastructure.Extensions;
+using TaskTracker.Infrastructure.Db.Extensions;
 
-namespace TaskTracker.Infrastructure;
+namespace TaskTracker.Infrastructure.Db;
 
 public class TasksDbContext(DbContextOptions<TasksDbContext> options) : DbContext(options)
 {
