@@ -4,12 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>TaskTracker.Core</RootNamespace>
-    <AssemblyName>TaskTracker.Core</AssemblyName>
+    <RootNamespace>TaskTracker.Infrastructure.Messaging</RootNamespace>
+    <AssemblyName>TaskTracker.Infrastructure.Messaging</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="14.2.0" />
+    <ProjectReference Include="..\..\Core\Core.csproj" />
   </ItemGroup>
 
 </Project>

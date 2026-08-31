@@ -1,24 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using TaskTracker.Core.Queries.GetTask;
 
 namespace TaskTracker.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public partial class TasksController(ILogger<TasksController> logger) : ControllerBase
+public partial class TasksController(
+        IMediator mediator,
+        ILogger<TasksController> logger
+) : ControllerBase
 {
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetProduct(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetTask(int id, CancellationToken cancelToken)
     {
         LogGetTaskById(id);
 
-        var dummyTask = new
-        {
-            Id = 11,
-            Title = "Solve task #11",
-            Description = "Task details",
-            CreatedAt = DateTime.UtcNow
-        };
+        var result = await mediator.Send(new GetTaskQuery(id), cancelToken);
 
-        return Ok(dummyTask);
+        return Ok(result);
     }
 }

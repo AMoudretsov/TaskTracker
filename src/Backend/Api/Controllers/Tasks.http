@@ -1,7 +1,29 @@
 @host = https://localhost:5443
 
+#region Get task by id
+
 # Returns task with given id
 GET {{host}}/tasks/1
 Accept: application/json
+
+###
+
+# Fails - task with given id does not exist
+GET {{host}}/tasks/2147483647
+Accept: application/json
+
+###
+
+# Fails - id must be positive int value
+GET {{host}}/tasks/-101
+Accept: application/json
+
+###
+
+# Fails - id is invalid int
+GET {{host}}/tasks/1e20
+Accept: application/json
+
+#endregion // Get task by id
 
 ###

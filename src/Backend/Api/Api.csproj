@@ -13,8 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Logging\Logging.csproj" />
     <ProjectReference Include="..\Infrastructure\Db\Db.csproj" />
+    <ProjectReference Include="..\Infrastructure\Logging\Logging.csproj" />
+    <ProjectReference Include="..\Infrastructure\Messaging\Messaging.csproj" />
+    <ProjectReference Include="..\Infrastructure\Validation\Validation.csproj" />
   </ItemGroup>
 
 </Project>

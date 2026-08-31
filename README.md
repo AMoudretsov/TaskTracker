@@ -26,7 +26,7 @@ dotnet ef database update
 ```
 
 > [!NOTE]
-> Ignore following db migrations error. This is known behavior of the Npgsql EF Core provider. Rather than check existence of `__EFMigrationsHistory` table, it runs `SELECT` query against it and handles exception to create the table when it have cannot been found.
+> Ignore following db migrations error. This is known behavior of the Npgsql EF Core provider. Rather than check existence of `__EFMigrationsHistory` table, it runs `SELECT` query against it and handles exception to create the table when it have not been found.
 ><!-- Hack to display text below in red color -->
 > ```diff
 > - Failed executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
@@ -45,6 +45,6 @@ dotnet dev-certs https --trust
 #### 4. Build and run tasks REST API:
 
 ```powershell
-cd <Repo Root>\src\Backend\Api
+cd <Repo Root>\src\Backend\Api\
 dotnet run --launch-profile Development
 ```

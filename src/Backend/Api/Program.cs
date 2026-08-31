@@ -1,18 +1,20 @@
 using TaskTracker.Api.Extensions;
 using TaskTracker.Infrastructure.Db.Extensions;
 using TaskTracker.Infrastructure.Logging.Extensions;
+using TaskTracker.Infrastructure.Messaging.Extensions;
+using TaskTracker.Infrastructure.Validation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddOpenApi()
     .AddProblemDetails()
+    .AddControllersAndGlobalFilters()
     .AddLowercaseUrls()
-    .AddControllers();
-
-builder.Services
     .AddTasksDb(builder.Configuration)
-    .AddLogging(builder.Configuration);
+    .AddInProcessMessaging()
+    .AddLogging(builder.Configuration)
+    .AddValidators();
 
 var webApp = builder.Build();
 
