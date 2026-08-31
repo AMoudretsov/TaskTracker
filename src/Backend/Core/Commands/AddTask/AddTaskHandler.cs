@@ -16,10 +16,10 @@ public partial class AddTaskHandler(
         AddTaskCommand command,
         CancellationToken cancelToken)
     {
-        var exists = await repository.ExistsAsync(
+        var isDuplicate = await repository.ExistsAsync(
             t => t.Title == command.Title,
             cancelToken);
-        if (exists)
+        if (isDuplicate)
         {
             LogTaskTitleDuplicate(command.Title!);
 
@@ -29,7 +29,7 @@ public partial class AddTaskHandler(
 
         var task = new TaskItem
         {
-            Title = command.Title!,
+            Title = command.Title!, // Title has been already validated and should have value at this point
             Description = command.Description
         };
 

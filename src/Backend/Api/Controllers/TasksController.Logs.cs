@@ -8,6 +8,8 @@ public partial class TasksController
     {
         public const int GetTaskById = 10002;
         public const int AddTask = 10003;
+        public const int UpdateTask = 10004;
+        public const int DeleteTask = 10005;
     }
 
     [LoggerMessage(
@@ -23,4 +25,19 @@ public partial class TasksController
         Level = LogLevel.Information,
         Message = "Add task {Model}")]
     public partial void LogAddTask(AddTaskModel model);
+
+    [LoggerMessage(
+        EventId = EventIds.UpdateTask,
+        EventName = nameof(EventIds.UpdateTask),
+        Level = LogLevel.Information,
+        Message = "Update task {Model}")]
+    public partial void LogUpdateTask(UpdateTaskModel model);
+
+    [LoggerMessage(
+        EventId = EventIds.DeleteTask,
+        EventName = nameof(EventIds.DeleteTask),
+        Level = LogLevel.Information,
+        Message = "Delete task by id={Id}")]
+    public partial void LogDeleteTask(int id);
+
 }

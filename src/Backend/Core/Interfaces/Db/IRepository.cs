@@ -11,9 +11,17 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
         Expression<Func<TEntity, TProjection>> selector,
         CancellationToken cancelToken = default);
 
+    Task<bool> ExistsAsync(int id, CancellationToken cancelToken = default);
+
     Task<bool> ExistsAsync(
         Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancelToken = default);
 
     void Add(TEntity entity);
+
+    void Attach(TEntity entity);
+
+    void Update(TEntity entity);
+
+    void Remove(TEntity entity);
 }

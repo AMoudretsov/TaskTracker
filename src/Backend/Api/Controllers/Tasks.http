@@ -140,3 +140,229 @@ Accept: application/json
 #endregion // Add task
 
 ###
+
+#region Update task
+
+# @name AddTaskToUpdate1
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}"
+}
+
+###
+
+# @name AddTaskToUpdate2
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}"
+}
+
+###
+
+# Updates task
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "{{AddTaskToUpdate1.response.body.title}}.UPDATED",
+    "description": "{{AddTaskToUpdate1.response.body.description}}.UPDATED",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - task not found
+PUT {{host}}/tasks/2147483647
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - id must be positive int value
+PUT {{host}}/tasks/-101
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - id is invalid int
+PUT {{host}}/tasks/1e20
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - missing request body
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+###
+
+# Fails - missing title
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - title is empty
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "",
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - title is not unique
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "{{AddTaskToUpdate2.response.body.title}}",
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - title length is greater than 128 characters
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task title too loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - description length is greater than 128 characters
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description too looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
+    "isCompleted": true,
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - missing "isCompleted" field
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "createdAt": "2026-03-01T15:00:01"
+}
+
+###
+
+# Fails - missing "createdAt" field
+PUT {{host}}/tasks/{{AddTaskToUpdate1.response.body.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true
+}
+
+#endregion // Update task
+
+###
+
+#region Delete task
+
+# @name AddTaskToDelete
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}"
+}
+
+###
+
+# Deletes task
+DELETE {{host}}/tasks/{{AddTaskToDelete.response.body.id}}
+Accept: application/json
+
+###
+
+# Fails - task not found
+DELETE {{host}}/tasks/2147483647
+Accept: application/json
+
+###
+
+# Fails - id must be positive int value
+DELETE {{host}}/tasks/-101
+Accept: application/json
+
+###
+
+# Fails - id is invalid int
+DELETE {{host}}/tasks/1e20
+Accept: application/json
+
+#endregion // Delete task
+
+###

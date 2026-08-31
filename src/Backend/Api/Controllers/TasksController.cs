@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using TaskTracker.Api.Models;
+using TaskTracker.Core.Commands.DeleteTask;
 using TaskTracker.Core.Queries.GetTask;
 
 namespace TaskTracker.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
 public partial class TasksController(
         IMediator mediator,
         ILogger<TasksController> logger
-) : ControllerBase
+) : ApiController
 {
     private const string GetTaskRouteName = $"{nameof(TasksController)}.{nameof(GetTask)}";
 
@@ -38,5 +38,28 @@ public partial class TasksController(
             : null;
 
         return Created(taskUri, result);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateTask(
+        int id,
+        [FromBody] UpdateTaskModel model,
+        CancellationToken cancelToken)
+    {
+        LogUpdateTask(model);
+
+        var result = await mediator.Send(model.ToCommand(id), cancelToken);
+
+        return Ok(result);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTask(int id, CancellationToken cancelToken)
+    {
+        LogDeleteTask(id);
+
+        var result = await mediator.Send(new DeleteTaskCommand(id), cancelToken);
+
+        return NoContent(result);
     }
 }

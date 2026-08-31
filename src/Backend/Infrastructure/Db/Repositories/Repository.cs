@@ -28,6 +28,13 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity> where
             .FirstOrDefaultAsync(cancelToken);
     }
 
+    public Task<bool> ExistsAsync(int id, CancellationToken cancelToken = default)
+    {
+        return ExistsAsync(
+            entity => entity.Id == id,
+            cancelToken);
+    }
+
     public Task<bool> ExistsAsync(
         Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancelToken = default)
@@ -40,5 +47,20 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity> where
     public void Add(TEntity entity)
     {
         context.Add(entity);
+    }
+
+    public void Attach(TEntity entity)
+    {
+        context.Attach(entity);
+    }
+
+    public void Update(TEntity entity)
+    {
+        context.Update(entity);
+    }
+
+    public void Remove(TEntity entity)
+    {
+        context.Remove(entity);
     }
 }
