@@ -11,7 +11,7 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity> where
     public virtual Task<TEntity?> FirstOrDefaultAsync(int id, CancellationToken cancelToken = default)
     {
         return Entities.FirstOrDefaultAsync(
-            x => x.Id == id,
+            entity => entity.Id == id,
             cancelToken);
     }
 
@@ -23,8 +23,22 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity> where
         ArgumentNullException.ThrowIfNull(selector);
 
         return Entities
-            .Where(x => x.Id == id)
+            .Where(entity => entity.Id == id)
             .Select(selector)
             .FirstOrDefaultAsync(cancelToken);
+    }
+
+    public Task<bool> ExistsAsync(
+        Expression<Func<TEntity, bool>> predicate,
+        CancellationToken cancelToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(predicate);
+
+        return Entities.AnyAsync(predicate, cancelToken);
+    }
+
+    public void Add(TEntity entity)
+    {
+        context.Add(entity);
     }
 }

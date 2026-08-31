@@ -1,4 +1,4 @@
-@host = https://localhost:5443
+@host = https://localhost:5443/api
 
 #region Get task by id
 
@@ -25,5 +25,118 @@ GET {{host}}/tasks/1e20
 Accept: application/json
 
 #endregion // Get task by id
+
+###
+
+#region Add task
+
+@taskUniqueToken = {{$guid}}
+
+# Adds task
+# @name AddTaskRequest
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}"
+}
+
+###
+
+# Adds completed task
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "isCompleted": true
+}
+
+###
+
+# Adds task with specific "createdAt" value
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "createdAt": "2026-03-01T15:00:00"
+}
+
+###
+
+# Fails - missing request body
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+###
+
+# Fails - missing title
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "description": "Description {{taskUniqueToken}}"
+}
+
+###
+
+# Fails - title is empty
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "",
+    "description": "Description {{taskUniqueToken}}"
+}
+
+###
+
+# Fails - title length is greater than 128 characters
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task title too loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
+    "description": "Description {{taskUniqueToken}}"
+}
+
+###
+
+# Fails - title is not unique
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "{{AddTaskRequest.response.body.title}}",
+    "description": "Description {{taskUniqueToken}}"
+}
+
+###
+
+# Fails - description length is greater than 4096 characters
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description too looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong"
+}
+
+###
+
+#endregion // Add task
 
 ###

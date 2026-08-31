@@ -10,4 +10,10 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
         int id,
         Expression<Func<TEntity, TProjection>> selector,
         CancellationToken cancelToken = default);
+
+    Task<bool> ExistsAsync(
+        Expression<Func<TEntity, bool>> predicate,
+        CancellationToken cancelToken = default);
+
+    void Add(TEntity entity);
 }

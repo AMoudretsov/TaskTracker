@@ -6,7 +6,7 @@ public partial class GetTaskHandler
 {
     private static class EventIds
     {
-        public const int TaskNotFound = 20001;
+        public const int TaskNotFound = 20011;
     }
 
     [LoggerMessage(

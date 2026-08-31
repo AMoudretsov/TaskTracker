@@ -1,0 +1,18 @@
+using Microsoft.Extensions.Logging;
+
+namespace TaskTracker.Core.Commands.AddTask;
+
+public partial class AddTaskHandler
+{
+    private static class EventIds
+    {
+        public const int TaskTitleDuplicate = 30021;
+    }
+
+    [LoggerMessage(
+        EventId = EventIds.TaskTitleDuplicate,
+        EventName = nameof(EventIds.TaskTitleDuplicate),
+        Level = LogLevel.Warning,
+        Message = "Task with title=\"{Name}\" already exists")]
+    public partial void LogTaskTitleDuplicate(string name);
+}
