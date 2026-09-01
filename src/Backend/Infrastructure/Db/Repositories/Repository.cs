@@ -44,6 +44,43 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity> where
         return Entities.AnyAsync(predicate, cancelToken);
     }
 
+    public Task<List<TProjection>> ListAsync<TKey, TProjection>(
+        Expression<Func<TEntity, TProjection>> selector,
+        Expression<Func<TEntity, bool>>? predicate = default,
+        Expression<Func<TEntity, TKey>>? keySelector = default,
+        int? limit = default,
+        CancellationToken cancelToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(selector);
+
+        var qry = Entities;
+
+        if (predicate is not null)
+        {
+            qry = qry.Where(predicate);
+        }
+
+        if (keySelector is not null)
+        {
+            qry = qry
+                .OrderBy(keySelector)
+                .ThenBy(entity => entity.Id);
+        }
+        else
+        {
+            qry = qry.OrderBy(entity => entity.Id);
+        }
+
+        if (limit.HasValue)
+        {
+            qry = qry.Take(limit.Value);
+        }
+
+        return qry
+            .Select(selector)
+            .ToListAsync(cancelToken);
+    }
+
     public void Add(TEntity entity)
     {
         context.Add(entity);

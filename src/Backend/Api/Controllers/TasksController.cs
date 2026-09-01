@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using TaskTracker.Api.Models;
 using TaskTracker.Core.Commands.DeleteTask;
+using TaskTracker.Core.Models;
 using TaskTracker.Core.Queries.GetTask;
+using TaskTracker.Core.Queries.ListTasks;
 
 namespace TaskTracker.Api.Controllers;
 
@@ -13,6 +15,18 @@ public partial class TasksController(
 ) : ApiController
 {
     private const string GetTaskRouteName = $"{nameof(TasksController)}.{nameof(GetTask)}";
+
+    [HttpGet]
+    public async Task<IActionResult> ListTasks(
+        [FromQuery] PagingQuery paging,
+        CancellationToken cancelToken)
+    {
+        LogGetTasks(paging);
+
+        var result = await mediator.Send(new ListTasksQuery(paging), cancelToken);
+
+        return Ok(result);
+    }
 
     [HttpGet("{id}", Name = GetTaskRouteName)]
     public async Task<IActionResult> GetTask(int id, CancellationToken cancelToken)

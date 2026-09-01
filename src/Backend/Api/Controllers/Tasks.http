@@ -1,5 +1,58 @@
 @host = https://localhost:5443/api
 
+#region List tasks
+
+# Returns first 5 tasks
+# @name ListTop5TasksRequest
+GET {{host}}/tasks?limit=5
+Accept: application/json
+
+###
+
+# Returns next 5 tasks
+GET {{host}}/tasks?limit=5&cursor={{ListTop5TasksRequest.response.body.items[4].id}}
+Accept: application/json
+
+###
+
+# Fails - limit must be >= 1
+GET {{host}}/tasks?limit=-10
+Accept: application/json
+
+###
+
+# Fails - limit must be <= 1000
+GET {{host}}/tasks?limit=2147483647
+Accept: application/json
+
+###
+
+# Fails - limit is invalid int
+GET {{host}}/tasks?limit=1e20
+Accept: application/json
+
+###
+
+# Returns items, taking the DEFAULT value of limit 100
+GET {{host}}/tasks
+Accept: application/json
+
+###
+
+# Fails - cursor must be positive int value
+GET {{host}}/tasks?limit=5&cursor=0
+Accept: application/json
+
+###
+
+# Fails - cursor is invalid int value
+GET {{host}}/tasks?limit=5&cursor=1e20
+Accept: application/json
+
+#endregion // List tasks
+
+###
+
 #region Get task by id
 
 # Returns task with given id
