@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/Infrastructure/">
+    <Project Path="Infrastructure/Db/Db.csproj" />
+    <Project Path="Infrastructure/Logging/Logging.csproj" />
+    <Project Path="Infrastructure/Messaging/Messaging.csproj" />
+    <Project Path="Infrastructure/Validation/Validation.csproj" />
+  </Folder>
+  <Project Path="Api/Api.csproj" />
   <Project Path="Core/Core.csproj" />
-  <Project Path="Infrastructure/Infrastructure.csproj" />
 </Solution>

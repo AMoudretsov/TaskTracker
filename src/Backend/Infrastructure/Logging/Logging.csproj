@@ -4,12 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>TaskTracker.Core</RootNamespace>
-    <AssemblyName>TaskTracker.Core</AssemblyName>
+    <RootNamespace>TaskTracker.Infrastructure.Logging</RootNamespace>
+    <AssemblyName>TaskTracker.Infrastructure.Logging</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="14.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
   </ItemGroup>
 
 </Project>

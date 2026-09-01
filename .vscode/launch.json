@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Tasks Api",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}/src/Backend/Api/Api.csproj",
+      "launchConfigurationId": "TargetFramework=;Development"
+    }
+  ]
+}

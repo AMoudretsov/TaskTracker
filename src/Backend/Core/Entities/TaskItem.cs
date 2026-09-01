@@ -1,6 +1,8 @@
+using TaskTracker.Core.Interfaces.Db;
+
 namespace TaskTracker.Core.Entities;
 
-public class TaskItem
+public class TaskItem : IEntity
 {
     public int Id { get; set; }
 
