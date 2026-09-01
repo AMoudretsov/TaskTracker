@@ -124,6 +124,32 @@ Accept: application/json
 
 ###
 
+# Adds task with "createdAt" specified as UTC value
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "createdAt": "2026-03-01T15:00:00Z"
+}
+
+###
+
+# Adds task with "createdAt" specified as datetime with timezone
+POST {{host}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Task {{taskUniqueToken}}",
+    "description": "Description {{taskUniqueToken}}",
+    "createdAt": "2026-03-01T15:00:00+05:00"
+}
+
+###
+
 # Fails - missing request body
 POST {{host}}/tasks
 Content-Type: application/json

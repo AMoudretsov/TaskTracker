@@ -40,7 +40,7 @@ public partial class AddTaskHandler(
 
         if (command.CreatedAt.HasValue)
         {
-            task.CreatedAt = DateTime.SpecifyKind(command.CreatedAt.Value, DateTimeKind.Utc);
+            task.CreatedAt = command.CreatedAt.Value;
         }
 
         repository.Add(task);
