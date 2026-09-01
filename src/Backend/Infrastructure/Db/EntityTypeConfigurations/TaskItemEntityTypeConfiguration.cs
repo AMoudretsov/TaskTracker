@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TaskTracker.Core.Entities;
 using TaskTracker.Infrastructure.Db.Common;
 using TaskTracker.Infrastructure.Db.Extensions;
+using TaskTracker.Infrastructure.Db.ValueConverters;
 
 namespace TaskTracker.Infrastructure.Db.EntityTypeConfigurations;
 
@@ -30,7 +31,8 @@ public class TaskItemEntityTypeConfiguration : IEntityTypeConfiguration<TaskItem
 
         builder
             .Property(t => t.CreatedAt)
-            .HasDefaultValueSql(Functions.Now);
+            .HasDefaultValueSql(Functions.Now)
+            .HasConversion<UtcDateTimeValueConverter>();
 
         builder
             .HasIndex(t => t.Title)

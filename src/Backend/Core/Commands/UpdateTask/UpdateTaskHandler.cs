@@ -42,7 +42,7 @@ public partial class UpdateTaskHandler(
         task.Title = command.Title!;
         task.Description = command.Description;
         task.IsCompleted = command.IsCompleted!.Value;
-        task.CreatedAt = DateTime.SpecifyKind(command.CreatedAt!.Value, DateTimeKind.Utc);
+        task.CreatedAt = command.CreatedAt!.Value;
 
         await uow.CommitAsync(cancelToken);
 
