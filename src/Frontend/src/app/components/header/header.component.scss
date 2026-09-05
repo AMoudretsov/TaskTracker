@@ -1,0 +1,56 @@
+@use "@angular/material" as mat;
+
+:host {
+  height: 6rem;
+  width: var(--tt-layout-content-max-width);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.search {
+  flex-grow: 1;
+
+  min-width: 20rem;
+  max-width: 50rem;
+
+  padding-right: 1rem;
+
+  @include mat.form-field-overrides(
+    (
+      leading-icon-color: var(--tt-text-color),
+      outlined-caret-color: var(--tt-text-color),
+      outlined-container-shape: 16px,
+      outlined-hover-outline-color: var(--mat-sys-primary),
+      outlined-input-text-color: var(--tt-text-color),
+      outlined-input-text-placeholder-color: var(--tt-input-placeholder-color),
+      outlined-outline-color: var(--mat-sys-outline-variant),
+    )
+  );
+
+  mat-icon {
+    padding-right: 0.4rem;
+  }
+}
+
+.add-button {
+  --tt-add-button-size: 4rem;
+
+  height: var(--tt-add-button-size);
+  width: var(--tt-add-button-size);
+
+  @include mat.fab-overrides(
+    (
+      pressed-container-elevation-shadow: var(--mat-sys-level2),
+      foreground-color: var(--mat-sys-on-primary),
+      container-color: var(--mat-sys-primary),
+      ripple-color: color-mix(in srgb, var(--mat-sys-on-primary) calc(var(--mat-sys-pressed-state-layer-opacity) * 100%), transparent),
+    )
+  );
+
+  mat-icon {
+    font-weight: 700;
+  }
+}

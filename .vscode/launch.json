@@ -2,11 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Tasks Api",
+      "name": "Debug Backend",
       "type": "dotnet",
       "request": "launch",
       "projectPath": "${workspaceFolder}/src/Backend/Api/Api.csproj",
       "launchConfigurationId": "TargetFramework=;Development"
+    },
+    {
+      "name": "Debug Frontend",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "npm: start",
+      "url": "http://localhost:4200/"
     }
   ]
 }

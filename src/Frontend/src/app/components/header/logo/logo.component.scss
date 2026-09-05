@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: max-content;
+}
+
+.logo {
+  --tt-logo-size: 3rem;
+  --tt-logo-icon-size: 1.75rem;
+
+  height: var(--tt-logo-size);
+  width: var(--tt-logo-size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--mat-sys-primary);
+  border-radius: var(--mat-sys-corner-medium);
+  box-shadow: var(--mat-sys-level2);
+
+  .logo-icon {
+    color: var(--mat-sys-on-primary);
+    font-size: var(--tt-logo-icon-size);
+    font-weight: 700;
+    height: var(--tt-logo-icon-size);
+    width: var(--tt-logo-icon-size);
+  }
+}
+
+.title {
+  color: var(--tt-title-color);
+  font-weight: 500;
+}
