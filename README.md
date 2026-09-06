@@ -26,7 +26,7 @@ dotnet ef database update
 ```
 
 > [!NOTE]
-> Ignore following db migrations error. This is known behavior of the Npgsql EF Core provider. Rather than check existence of `__EFMigrationsHistory` table, it runs `SELECT` query against it and handles exception to create the table when it have not been found.
+> Ignore following db migrations error. This is known behavior of the Npgsql EF Core provider. Rather than check existence of `__EFMigrationsHistory` table, it runs `SELECT` query against it and handles exception to create the table when it has not been found.
 ><!-- Hack to display text below in red color -->
 > ```diff
 > - Failed executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
