@@ -1,0 +1,40 @@
+<mat-card appearance="outlined" class="card">
+  <mat-card-header>
+    <mat-card-title>
+      <div class="title-container">
+        <div [class.done]="done()" class="title">{{task().title}}</div>
+        <div class="title-actions">
+          <button (click)="toggleStatus()" class="toggle-action" matIconButton>
+            @if(done()) {
+              <mat-icon>toggle_on</mat-icon>
+            }
+            @else {
+              <mat-icon>toggle_off</mat-icon>
+            }
+          </button>
+          <button [disabled]="done()" (click)="editTask()" class="edit-action" matIconButton>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button [disabled]="done()" (click)="deleteTask()" class="delete-action" matIconButton>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="description">{{task().description}}</mat-card-content>
+  <mat-card-footer>
+    <div class="footer">
+      <mat-divider />
+      <div class="footer-content">
+        <div class="task-creation-date">
+          <mat-icon>event</mat-icon>
+          <div>{{createdAt()}}</div>
+        </div>
+        <mat-chip-set>
+          <mat-chip [highlighted]="true" class="task-status">{{status()}}</mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+  </mat-card-footer>
+</mat-card>

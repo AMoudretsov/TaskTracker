@@ -10,6 +10,25 @@
       },
       "problemMatcher": [],
       "label": "dotnet: build"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "path": "src/Frontend/",
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "Changes detected"
+          },
+          "endsPattern": {
+            "regexp": "bundle generation (complete|failed)"
+          }
+        }
+      }
     }
   ]
 }

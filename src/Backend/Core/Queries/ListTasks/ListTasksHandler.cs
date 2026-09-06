@@ -16,13 +16,14 @@ public partial class ListTasksHandler(
         ListTasksQuery request,
         CancellationToken cancelToken)
     {
+        var searchPredicate = GetSearchPredicate(request.Search);
         var cursorPredicate = await GetCursorPredicateAsync(request.Paging.Cursor, cancelToken);
 
         var limit = request.Paging.Limit ?? DefaultLimit;
 
         var items = await repository.ListAsync(
             t => new TaskResponse(t.Id, t.Title, t.Description, t.IsCompleted, t.CreatedAt),
-            cursorPredicate,
+            [searchPredicate, cursorPredicate],
             t => t.CreatedAt,
             limit + 1,
             cancelToken);
@@ -38,6 +39,17 @@ public partial class ListTasksHandler(
         var collectionResponse = new CollectionResponse<TaskResponse>(items, pagingResponse);
 
         return OperationResult<CollectionResponse<TaskResponse>?>.Success(collectionResponse);
+    }
+
+    private static Expression<Func<TaskItem, bool>>? GetSearchPredicate(string? search)
+    {
+        if (string.IsNullOrWhiteSpace(search))
+        {
+            return null;
+        }
+
+        return task => task.Title.Contains(search)
+            || (task.Description != null && task.Description.Contains(search));
     }
 
     private async Task<Expression<Func<TaskItem, bool>>?> GetCursorPredicateAsync(

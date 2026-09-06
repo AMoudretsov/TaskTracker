@@ -1,0 +1,13 @@
+:root {
+  --tt-layout-surface: light-dark(#f0f6fc, #121316);
+  --tt-layout-horizontal-padding: 2rem;
+  --tt-layout-vertical-gap: 2rem;
+  --tt-layout-content-max-width: min(100%, 70rem);
+
+  --tt-input-placeholder-color: light-dark(#9ca3af, #9ca3af);
+  --tt-title-color: light-dark(#0b3b5c, #d7e3ff);
+  --tt-text-color: light-dark(#1f4863, #d7e3ff);
+  --tt-text-light-color: light-dark(#4f7f9e, #d7e3ff);
+
+  --tt-mat-sys-primary: light-dark(#1e6f9f, #abc7ff);
+}

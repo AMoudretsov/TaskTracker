@@ -1,0 +1,44 @@
+@use "@angular/material" as mat;
+@use "styles/index";
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  color-scheme: light dark;
+
+  background-color: var(--tt-layout-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  margin: 0;
+  height: 100%;
+}
+
+:root {
+  @include mat.theme-overrides(
+    (
+      primary: var(--tt-mat-sys-primary),
+    )
+  );
+
+  .popup-message-error {
+    @include mat.snack-bar-overrides(
+      (
+        container-color: color-mix(in srgb, var(--mat-sys-error) 85%, transparent),
+        supporting-text-color: var(--mat-sys-on-error),
+      )
+    );
+  }
+}

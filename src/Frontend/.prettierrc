@@ -1,0 +1,24 @@
+{
+  "printWidth": 100,
+  "singleQuote": false,
+  "plugins": ["prettier-plugin-angular"],
+  "overrides": [
+    {
+      "files": "**/*.component.html",
+      "options": {
+        "parser": "angular-attributes",
+        "angularAttributeSort": true
+      }
+    },
+    {
+      "files": [
+        "*.css",
+        "*.scss",
+        "*.html"
+      ],
+      "options": {
+        "printWidth": 10000
+      }
+    }
+  ]
+}

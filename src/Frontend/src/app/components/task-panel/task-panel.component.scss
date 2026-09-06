@@ -1,0 +1,122 @@
+@use "@angular/material" as mat;
+
+.card {
+  --tt-card-padding: 1rem;
+
+  @include mat.card-overrides(
+    (
+      outlined-container-color: var(--mat-sys-surface-container-lowest),
+    )
+  );
+
+  &:hover {
+    @include mat.card-overrides(
+      (
+        outlined-container-elevation: var(--mat-sys-level1),
+        outlined-outline-color: var(--mat-sys-primary),
+        outlined-outline-width: 1px,
+      )
+    );
+  }
+
+  mat-card-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+    .title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+        flex-grow: 1;
+
+        color: var(--tt-title-color);
+        padding: 0 0 var(--tt-card-padding) 0;
+      }
+
+      .title-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.25rem;
+
+        .toggle-action,
+        .edit-action {
+          @include mat.icon-button-overrides(
+            (
+              icon-color: var(--mat-sys-primary),
+              disabled-icon-color: color-mix(in srgb, var(--mat-sys-primary) 45%, transparent),
+              ripple-color: color-mix(in srgb, var(--mat-sys-primary) calc(var(--mat-sys-pressed-state-layer-opacity) * 100%), transparent),
+              state-layer-color: var(--mat-sys-primary),
+              hover-state-layer-opacity: 0.15,
+            )
+          );
+        }
+
+        .delete-action {
+          @include mat.icon-button-overrides(
+            (
+              icon-color: var(--mat-sys-error),
+              disabled-icon-color: color-mix(in srgb, var(--mat-sys-error) 45%, transparent),
+              ripple-color: color-mix(in srgb, var(--mat-sys-error) calc(var(--mat-sys-pressed-state-layer-opacity) * 100%), transparent),
+              state-layer-color: var(--mat-sys-error),
+              hover-state-layer-opacity: 0.15,
+            )
+          );
+        }
+      }
+    }
+  }
+
+  .description {
+    color: var(--tt-text-color);
+  }
+
+  .done {
+    text-decoration: line-through;
+  }
+
+  .footer {
+    padding: var(--tt-card-padding);
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      color: var(--tt-text-light-color);
+      font-size: 0.8rem;
+      padding: var(--tt-card-padding) 0 0 0;
+
+      .task-creation-date {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem;
+
+        mat-icon {
+          --tt-footer-icon-size: 1.25rem;
+
+          font-size: var(--tt-footer-icon-size);
+          height: var(--tt-footer-icon-size);
+          width: var(--tt-footer-icon-size);
+        }
+      }
+
+      .task-status {
+        @include mat.chips-overrides(
+          (
+            container-shape-radius: 16px,
+            label-text-color: var(--mat-sys-primary),
+            outline-color: var(--mat-sys-primary-container),
+            hover-state-layer-opacity: 0,
+            selected-hover-state-layer-opacity: 0,
+          )
+        );
+      }
+    }
+  }
+}

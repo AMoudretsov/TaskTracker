@@ -1,0 +1,8 @@
+@for(task of store.tasks(); track task.id) {
+  <app-task-panel [task]="task" />
+}
+  @empty {
+  <p class="no-tasks-message">{{textLiterals.NoTasksFound}}</p>
+}
+
+<div #nextPageIndicator class="next-page-indicator"></div>
