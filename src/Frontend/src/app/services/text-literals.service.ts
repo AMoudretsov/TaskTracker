@@ -15,4 +15,6 @@ export class TextLiteralsService {
   public readonly TaskStatusDone = "Done";
 
   public readonly SearchFailure = "Error occurred on retrieving the task list";
+
+  public readonly NotImplemented = "Functionality not implemented yet. Coming soon.";
 }

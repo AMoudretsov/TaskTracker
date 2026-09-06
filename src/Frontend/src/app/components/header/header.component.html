@@ -5,6 +5,6 @@
   <input [placeholder]="textLiterals.SearchPlaceholder" [formField]="searchForm.searchTerm" type="search" matInput />
 </mat-form-field>
 
-<button class="add-button" matFab>
+<button (click)="addTask()" class="add-button" matFab>
   <mat-icon>add</mat-icon>
 </button>

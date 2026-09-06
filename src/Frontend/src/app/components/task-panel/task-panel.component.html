@@ -12,10 +12,10 @@
               <mat-icon>toggle_off</mat-icon>
             }
           </button>
-          <button [disabled]="done()" class="edit-action" matIconButton>
+          <button [disabled]="done()" (click)="editTask()" class="edit-action" matIconButton>
             <mat-icon>edit</mat-icon>
           </button>
-          <button [disabled]="done()" class="delete-action" matIconButton>
+          <button [disabled]="done()" (click)="deleteTask()" class="delete-action" matIconButton>
             <mat-icon>delete</mat-icon>
           </button>
         </div>

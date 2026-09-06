@@ -29,7 +29,6 @@ export const AppStore = signalStore(
           debounceTime(500),
           distinctUntilChanged(),
           tap((searchTerm) => patchState(store, { inProgress: true, searchTerm })),
-          delay(2000),
           switchMap((searchTerm) => {
             return tasksService
               .listTasks({ search: searchTerm, limit: store.paging.limit(), cursor: null })
@@ -82,6 +81,9 @@ export const AppStore = signalStore(
           }),
         ),
       ),
+      notify(message: string): void {
+        patchState(store, () => ({ error: { message } }));
+      },
     }),
   ),
 );

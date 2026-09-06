@@ -37,4 +37,8 @@ export class HeaderComponent {
   constructor() {
     this.store.search(this.searchTerm);
   }
+
+  protected addTask(): void {
+    this.store.notify(this.textLiterals.NotImplemented);
+  }
 }

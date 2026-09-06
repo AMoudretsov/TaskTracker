@@ -7,6 +7,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatIcon } from "@angular/material/icon";
 import { Task } from "../../models/task.model";
 import { TextLiteralsService } from "../../services/text-literals.service";
+import { AppStore } from "../../store/app.store";
 
 @Component({
   imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIcon, MatChipsModule],
@@ -15,9 +16,11 @@ import { TextLiteralsService } from "../../services/text-literals.service";
   templateUrl: "./task-panel.component.html",
 })
 export class TaskPanel {
-  private _textLiterals = inject(TextLiteralsService);
-
   public task = model.required<Task>();
+
+  protected readonly store = inject(AppStore);
+
+  protected textLiterals = inject(TextLiteralsService);
 
   protected createdAt = computed(() =>
     formatDate(this.task().createdAt, "yyyy-MM-dd HH:mm:ss", "en-GB"),
@@ -26,12 +29,18 @@ export class TaskPanel {
   protected done = computed(() => this.task().isCompleted);
 
   protected status = computed(() =>
-    this.task().isCompleted
-      ? this._textLiterals.TaskStatusDone
-      : this._textLiterals.TaskStatusActive,
+    this.task().isCompleted ? this.textLiterals.TaskStatusDone : this.textLiterals.TaskStatusActive,
   );
 
   protected toggleStatus() {
     this.task.update((t) => ({ ...t, isCompleted: !t.isCompleted }));
+  }
+
+  protected editTask(): void {
+    this.store.notify(this.textLiterals.NotImplemented);
+  }
+
+  protected deleteTask(): void {
+    this.store.notify(this.textLiterals.NotImplemented);
   }
 }
