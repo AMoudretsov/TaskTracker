@@ -32,4 +32,13 @@ body {
       primary: var(--tt-mat-sys-primary),
     )
   );
+
+  .popup-message-error {
+    @include mat.snack-bar-overrides(
+      (
+        container-color: color-mix(in srgb, var(--mat-sys-error) 85%, transparent),
+        supporting-text-color: var(--mat-sys-on-error),
+      )
+    );
+  }
 }

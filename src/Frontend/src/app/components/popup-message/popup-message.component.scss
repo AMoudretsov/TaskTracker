@@ -1,0 +1,24 @@
+@use "@angular/material" as mat;
+
+:host {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon {
+  --tt-icon-size: 2rem;
+
+  color: var(--mat-sys-on-error);
+
+  font-size: var(--tt-icon-size);
+  height: var(--tt-icon-size);
+  width: var(--tt-icon-size);
+}
+
+.message {
+  color: var(--mat-sys-on-error);
+
+  font-size: 1rem;
+}

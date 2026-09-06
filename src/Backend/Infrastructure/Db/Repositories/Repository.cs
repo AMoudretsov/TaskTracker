@@ -46,7 +46,7 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity> where
 
     public Task<List<TProjection>> ListAsync<TKey, TProjection>(
         Expression<Func<TEntity, TProjection>> selector,
-        Expression<Func<TEntity, bool>>? predicate = default,
+        IEnumerable<Expression<Func<TEntity, bool>>?>? predicates = default,
         Expression<Func<TEntity, TKey>>? keySelector = default,
         int? limit = default,
         CancellationToken cancelToken = default)
@@ -55,9 +55,17 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity> where
 
         var qry = Entities;
 
-        if (predicate is not null)
+        if (predicates is not null)
         {
-            qry = qry.Where(predicate);
+            foreach (var predicate in predicates)
+            {
+                if (predicate is null)
+                {
+                    continue;
+                }
+
+                qry = qry.Where(predicate);
+            }
         }
 
         if (keySelector is not null)

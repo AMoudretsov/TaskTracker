@@ -15,6 +15,19 @@ Accept: application/json
 
 ###
 
+# Returns first 5 tasks matched given search term
+# @name SearchTop5TasksRequest
+GET {{host}}/tasks?search=integer&limit=5
+Accept: application/json
+
+###
+
+# Returns next 5 tasks matched given search term
+GET {{host}}/tasks?search=integer&limit=5&cursor={{SearchTop5TasksRequest.response.body.items[4].id}}
+Accept: application/json
+
+###
+
 # Fails - limit must be >= 1
 GET {{host}}/tasks?limit=-10
 Accept: application/json

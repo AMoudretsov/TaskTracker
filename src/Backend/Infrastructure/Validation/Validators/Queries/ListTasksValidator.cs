@@ -7,6 +7,10 @@ public class ListTasksValidator : AbstractValidator<ListTasksQuery>
 {
     public ListTasksValidator()
     {
+        RuleFor(qry => qry.Search)
+            .MaximumLength(128).WithMessage("Length of search term cannot exceed 128 characters")
+            .When(qry => !string.IsNullOrEmpty(qry.Search));
+
         RuleFor(qry => qry.Paging.Limit)
             .GreaterThanOrEqualTo(1).WithMessage("Paging limit must be in the range [1, 1000]")
             .LessThanOrEqualTo(1000).WithMessage("Paging limit must be in the range [1, 1000]")

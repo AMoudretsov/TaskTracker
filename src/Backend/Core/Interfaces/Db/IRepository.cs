@@ -19,7 +19,7 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
 
     Task<List<TProjection>> ListAsync<TKey, TProjection>(
         Expression<Func<TEntity, TProjection>> selector,
-        Expression<Func<TEntity, bool>>? predicate = default,
+        IEnumerable<Expression<Func<TEntity, bool>>?>? predicates = default,
         Expression<Func<TEntity, TKey>>? keySelector = default,
         int? limit = default,
         CancellationToken cancelToken = default);

@@ -9,7 +9,5 @@ import { TextLiteralsService } from "../../../services/text-literals.service";
   templateUrl: "./logo.component.html",
 })
 export class LogoComponent {
-  private readonly _textLiterals = inject(TextLiteralsService);
-
-  protected readonly AppTitle = this._textLiterals.AppTitle;
+  protected readonly textLiterals = inject(TextLiteralsService);
 }

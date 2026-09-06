@@ -8,7 +8,11 @@ export class TextLiteralsService {
 
   public readonly SearchPlaceholder = "Search tasks";
 
+  public readonly NoTasksFound = "No tasks found";
+
   public readonly TaskStatusActive = "Active";
 
   public readonly TaskStatusDone = "Done";
+
+  public readonly SearchFailure = "Error occurred on retrieving the task list";
 }

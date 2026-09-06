@@ -1,8 +1,10 @@
+@use "@angular/material" as mat;
+
 :host {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
   gap: var(--tt-layout-vertical-gap);
 
   min-width: 45rem;
@@ -14,15 +16,27 @@
   top: 0;
   z-index: 1000;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: stretch;
-
-  padding: 0 var(--tt-layout-horizontal-padding);
-
   background-color: var(--mat-sys-surface-container-lowest);
   border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  .layout-header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 var(--tt-layout-horizontal-padding);
+  }
+
+  .progress-bar {
+    width: 100%;
+
+    @include mat.progress-bar-overrides(
+      (
+        active-indicator-height: 2px,
+        track-height: 2px,
+      )
+    );
+  }
 }
 
 .layout-body {

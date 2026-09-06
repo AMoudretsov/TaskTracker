@@ -5,7 +5,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIcon } from "@angular/material/icon";
-import { Task } from "../../models/task";
+import { Task } from "../../models/task.model";
 import { TextLiteralsService } from "../../services/text-literals.service";
 
 @Component({

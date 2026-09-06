@@ -1,5 +1,13 @@
 <header class="layout-header">
-  <ng-content select="[layout-header]" />
+  <div class="layout-header-content">
+    <ng-content select="[layout-header]" />
+  </div>
+  @if (store.inProgress())
+  {
+    <div class="progress-bar">
+      <mat-progress-bar mode="indeterminate" />
+    </div>
+  }
 </header>
 
 <main class="layout-body">

@@ -4,4 +4,24 @@
   justify-content: flex-start;
   align-items: stretch;
   gap: var(--tt-layout-vertical-gap);
+
+  position: relative;
+
+  width: var(--tt-layout-content-max-width);
+}
+
+.no-tasks-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: color-mix(in srgb, var(--tt-text-color) 50%, transparent);
+  font-size: 1rem;
+}
+
+.next-page-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 25vh;
 }
