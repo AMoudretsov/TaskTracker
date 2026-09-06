@@ -48,3 +48,24 @@ dotnet dev-certs https --trust
 cd <Repo Root>\src\Backend\Api\
 dotnet run --launch-profile Development
 ```
+
+#### 5. Restore NPM dependencies in the frontend project:
+
+```powershell
+cd <Repo Root>\src\Frontend\
+npm install
+```
+
+#### 6. Build and run frontend project:
+
+```powershell
+cd <Repo Root>\src\Frontend\
+npm start
+```
+
+#### 7. Open UI in browser:
+
+Access UI by standard URL for Angular apps in dev environment: [http://localhost:4200](http://localhost:4200). Dev server proxies API requests and forwards them to [https://localhost:5443/api](https://localhost:5443/api), so there should be no CORS issues.
+
+> [!WARNING]
+> Current UI implementation lists the tasks and supports searching. Task modification actions (add/edit/delete) are not implemented yet. They will be done soon.
