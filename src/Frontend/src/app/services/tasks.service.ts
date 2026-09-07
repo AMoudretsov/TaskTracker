@@ -22,4 +22,8 @@ export class TasksService {
   updateTask(task: Task): Observable<Task> {
     return this._api.put<Task>(`/tasks/${task.id}`, task);
   }
+
+  deleteTask(task: Task): Observable<Object> {
+    return this._api.delete(`/tasks/${task.id}`);
+  }
 }

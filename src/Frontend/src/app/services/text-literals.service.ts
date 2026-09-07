@@ -18,5 +18,7 @@ export class TextLiteralsService {
 
   public readonly UpdateStatusFailure = "Error occurred on updating the task status";
 
+  public readonly DeleteFailure = "Error occurred on deleting the task";
+
   public readonly NotImplemented = "Functionality not implemented yet. Coming soon.";
 }

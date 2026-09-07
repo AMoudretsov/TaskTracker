@@ -50,7 +50,8 @@ export class TaskPanel implements OnChanges {
   }
 
   protected deleteTask(): void {
-    this.store.notify(this.textLiterals.NotImplemented);
+    this.changeInProgress.set(true);
+    this.store.delete(this.task());
   }
 
   ngOnChanges(): void {

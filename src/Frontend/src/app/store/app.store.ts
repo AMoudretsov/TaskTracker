@@ -106,6 +106,23 @@ export const AppStore = signalStore(
           }),
         ),
       ),
+      delete: rxMethod<Task>(
+        pipe(
+          tap(() => patchState(store, { inProgress: true })),
+          concatMap((task) => {
+            return tasksService.deleteTask(task).pipe(
+              tapResponse({
+                next: () =>
+                  patchState(store, (state) => ({
+                    tasks: state.tasks.filter((t) => t.id !== task.id),
+                  })),
+                error: () => patchState(store, { error: { message: textLiterals.DeleteFailure } }),
+                finalize: () => patchState(store, { inProgress: false }),
+              }),
+            );
+          }),
+        ),
+      ),
       notify(message: string): void {
         patchState(store, () => ({ error: { message } }));
       },
