@@ -5,7 +5,7 @@ import { Title } from "@angular/platform-browser";
 export class BrowserService {
   private readonly _titleService = inject(Title);
 
-  public setTabTitle(title: string): void {
+  setTabTitle(title: string): void {
     this._titleService.setTitle(title);
   }
 }

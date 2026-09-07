@@ -2,23 +2,23 @@ import { Service } from "@angular/core";
 
 @Service()
 export class TextLiteralsService {
-  public readonly AppTitle = "Task Tracker";
+  readonly AppTitle = "Task Tracker";
 
-  public readonly TabTitle = "Task Tracker";
+  readonly TabTitle = "Task Tracker";
 
-  public readonly SearchPlaceholder = "Search tasks";
+  readonly SearchPlaceholder = "Search tasks";
 
-  public readonly NoTasksFound = "No tasks found";
+  readonly NoTasksFound = "No tasks found";
 
-  public readonly TaskStatusActive = "Active";
+  readonly TaskStatusActive = "Active";
 
-  public readonly TaskStatusDone = "Done";
+  readonly TaskStatusDone = "Done";
 
-  public readonly SearchFailure = "Error occurred on retrieving the task list";
+  readonly SearchFailure = "Error occurred on retrieving the task list";
 
-  public readonly UpdateStatusFailure = "Error occurred on updating the task status";
+  readonly UpdateStatusFailure = "Error occurred on updating the task status";
 
-  public readonly DeleteFailure = "Error occurred on deleting the task";
+  readonly DeleteFailure = "Error occurred on deleting the task";
 
-  public readonly NotImplemented = "Functionality not implemented yet. Coming soon.";
+  readonly NotImplemented = "Functionality not implemented yet. Coming soon.";
 }

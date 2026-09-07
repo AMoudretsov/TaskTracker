@@ -15,9 +15,9 @@ export class LayoutComponent implements OnInit {
   private readonly _browserService = inject(BrowserService);
   private readonly _snackBar = inject(MatSnackBar);
 
-  protected readonly store = inject(AppStore);
+  readonly store = inject(AppStore);
 
-  protected readonly notifications = effect(() => {
+  readonly notifications = effect(() => {
     var error = this.store.error();
     if (error) {
       this._snackBar.openFromComponent(PopupMessageComponent, {

@@ -16,40 +16,38 @@ import { AppStore } from "../../store/app.store";
   templateUrl: "./task-panel.component.html",
 })
 export class TaskPanel implements OnChanges {
-  public task = model.required<Task>();
+  task = model.required<Task>();
 
-  protected readonly store = inject(AppStore);
+  readonly store = inject(AppStore);
 
-  protected textLiterals = inject(TextLiteralsService);
+  readonly textLiterals = inject(TextLiteralsService);
 
-  protected changeInProgress = signal(false);
+  changeInProgress = signal(false);
 
-  protected createdAt = computed(() =>
-    formatDate(this.task().createdAt, "yyyy-MM-dd HH:mm:ss", "en-GB"),
-  );
+  createdAt = computed(() => formatDate(this.task().createdAt, "yyyy-MM-dd HH:mm:ss", "en-GB"));
 
-  protected done = computed(() => this.task().isCompleted);
+  done = computed(() => this.task().isCompleted);
 
-  protected toggleDisabled = computed(() => this.changeInProgress());
+  toggleDisabled = computed(() => this.changeInProgress());
 
-  protected editDisabled = computed(() => this.done() || this.changeInProgress());
+  editDisabled = computed(() => this.done() || this.changeInProgress());
 
-  protected deleteDisabled = computed(() => this.done() || this.changeInProgress());
+  deleteDisabled = computed(() => this.done() || this.changeInProgress());
 
-  protected status = computed(() =>
+  status = computed(() =>
     this.task().isCompleted ? this.textLiterals.TaskStatusDone : this.textLiterals.TaskStatusActive,
   );
 
-  protected toggleStatus() {
+  toggleStatus() {
     this.changeInProgress.set(true);
     this.store.toggleCompletionStatus(this.task());
   }
 
-  protected editTask(): void {
+  editTask(): void {
     this.store.notify(this.textLiterals.NotImplemented);
   }
 
-  protected deleteTask(): void {
+  deleteTask(): void {
     this.changeInProgress.set(true);
     this.store.delete(this.task());
   }

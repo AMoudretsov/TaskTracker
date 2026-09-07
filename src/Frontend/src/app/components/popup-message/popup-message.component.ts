@@ -13,5 +13,5 @@ export interface PopupMessageData {
   templateUrl: "./popup-message.component.html",
 })
 export class PopupMessageComponent {
-  protected data = inject<PopupMessageData>(MAT_SNACK_BAR_DATA);
+  data = inject<PopupMessageData>(MAT_SNACK_BAR_DATA);
 }
