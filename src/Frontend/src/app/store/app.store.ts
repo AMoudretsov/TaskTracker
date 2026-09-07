@@ -24,8 +24,7 @@ export const AppStore = signalStore(
   withTaskToggleCompletionStatus(),
   withTaskDelete(),
   withNotify(),
-  withComputed(({ tasks, inProgress, paging }) => ({
-    noTasksFound: computed(() => tasks().length === 0),
+  withComputed(({ inProgress, paging }) => ({
     canLoadNextPage: computed(() => !inProgress() && paging.hasMore()),
   })),
 );

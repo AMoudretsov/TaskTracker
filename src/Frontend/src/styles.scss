@@ -41,4 +41,19 @@ body {
       )
     );
   }
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: var(--mat-sys-corner-small),
+      headline-padding: 0.5rem 1.5rem 0.5rem,
+      supporting-text-color: var(--tt-text-color),
+      subhead-line-height: 1.3rem,
+      subhead-size: 1.3rem,
+      subhead-weight: 500,
+    )
+  );
+
+  .confirm-delete-dialog {
+    @include mat.dialog-overrides(());
+  }
 }

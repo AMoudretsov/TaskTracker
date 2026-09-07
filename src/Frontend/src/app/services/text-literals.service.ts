@@ -14,6 +14,10 @@ export class TextLiteralsService {
 
   readonly TaskStatusDone = "Done";
 
+  readonly ConfirmTaskDeleteTitle = "Delete Task";
+
+  readonly ConfirmTaskDeleteContent = "Please confirm deletion of the following task:";
+
   readonly SearchFailure = "Error occurred on retrieving the task list";
 
   readonly UpdateStatusFailure = "Error occurred on updating the task status";
@@ -21,4 +25,8 @@ export class TextLiteralsService {
   readonly DeleteFailure = "Error occurred on deleting the task";
 
   readonly NotImplemented = "Functionality not implemented yet. Coming soon.";
+
+  readonly Cancel = "Cancel";
+
+  readonly Delete = "Delete";
 }

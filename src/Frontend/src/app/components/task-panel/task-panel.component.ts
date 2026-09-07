@@ -1,13 +1,25 @@
 import { formatDate } from "@angular/common";
-import { Component, computed, inject, model, OnChanges, signal } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  Injector,
+  model,
+  OnChanges,
+  signal,
+} from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
+import { MatDialog } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIcon } from "@angular/material/icon";
 import { Task } from "../../models/task.model";
 import { TextLiteralsService } from "../../services/text-literals.service";
 import { AppStore } from "../../store/app.store";
+import { ConfirmDeleteDialogComponent } from "../confirm-delete-dialog/confirm-delete-dialog.component";
 
 @Component({
   imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIcon, MatChipsModule],
@@ -16,6 +28,10 @@ import { AppStore } from "../../store/app.store";
   templateUrl: "./task-panel.component.html",
 })
 export class TaskPanel implements OnChanges {
+  private readonly _injector = inject(Injector);
+
+  private readonly _dialog = inject(MatDialog);
+
   task = model.required<Task>();
 
   readonly store = inject(AppStore);
@@ -48,8 +64,33 @@ export class TaskPanel implements OnChanges {
   }
 
   deleteTask(): void {
-    this.changeInProgress.set(true);
-    this.store.delete(this.task());
+    const confirmDialog = this._dialog.open(ConfirmDeleteDialogComponent, {
+      data: {
+        dialogTitle: this.textLiterals.ConfirmTaskDeleteTitle,
+        dialogMessage: this.textLiterals.ConfirmTaskDeleteContent,
+        itemToDelete: this.task().title,
+      },
+      disableClose: true,
+      panelClass: ["confirm-delete-dialog"],
+      autoFocus: "dialog",
+      height: "15rem",
+      width: "25rem",
+    });
+
+    const confirmed = toSignal(confirmDialog.afterClosed(), {
+      initialValue: null,
+      injector: this._injector,
+    });
+
+    effect(
+      () => {
+        if (confirmed()) {
+          this.changeInProgress.set(true);
+          this.store.delete(this.task());
+        }
+      },
+      { injector: this._injector },
+    );
   }
 
   ngOnChanges(): void {

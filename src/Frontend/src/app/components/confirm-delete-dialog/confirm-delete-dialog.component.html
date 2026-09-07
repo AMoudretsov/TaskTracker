@@ -1,0 +1,13 @@
+<h2 class="title" mat-dialog-title>{{dialogInput.dialogTitle}}</h2>
+
+<mat-dialog-content>
+  <div class="content">
+    <p class="message">{{dialogInput.dialogMessage}}</p>
+    <p class="name">{{dialogInput.itemToDelete}}</p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button [mat-dialog-close]="false" matButton>{{textLiterals.Cancel}}</button>
+  <button [mat-dialog-close]="true" class="delete-button" matButton>{{textLiterals.Delete}}</button>
+</mat-dialog-actions>
