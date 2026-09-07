@@ -36,7 +36,7 @@ body {
   .popup-message-error {
     @include mat.snack-bar-overrides(
       (
-        container-color: color-mix(in srgb, var(--mat-sys-error) 85%, transparent),
+        container-color: color-mix(in srgb, var(--mat-sys-error) 90%, transparent),
         supporting-text-color: var(--mat-sys-on-error),
       )
     );

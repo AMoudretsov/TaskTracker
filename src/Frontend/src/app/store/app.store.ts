@@ -2,7 +2,8 @@ import { computed, inject } from "@angular/core";
 import { tapResponse } from "@ngrx/operators";
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { debounceTime, delay, distinctUntilChanged, pipe, switchMap, tap } from "rxjs";
+import { concatMap, debounceTime, distinctUntilChanged, pipe, switchMap, tap } from "rxjs";
+import { Task } from "../models/task.model";
 import { TasksService } from "../services/tasks.service";
 import { TextLiteralsService } from "../services/text-literals.service";
 import { AppState } from "./app-state.model";
@@ -54,8 +55,7 @@ export const AppStore = signalStore(
       loadNextPage: rxMethod<void>(
         pipe(
           tap(() => patchState(store, { inProgress: true })),
-          delay(2000),
-          switchMap(() => {
+          concatMap(() => {
             return tasksService
               .listTasks({
                 search: store.searchTerm(),
@@ -75,6 +75,31 @@ export const AppStore = signalStore(
                     }),
                   error: () =>
                     patchState(store, { error: { message: textLiterals.SearchFailure } }),
+                  finalize: () => patchState(store, { inProgress: false }),
+                }),
+              );
+          }),
+        ),
+      ),
+      toggleCompletionStatus: rxMethod<Task>(
+        pipe(
+          tap(() => patchState(store, { inProgress: true })),
+          concatMap((task) => {
+            return tasksService
+              .updateTask({
+                ...task,
+                isCompleted: !task.isCompleted,
+              })
+              .pipe(
+                tapResponse({
+                  next: (response) =>
+                    patchState(store, (state) => ({
+                      tasks: state.tasks.map((t) =>
+                        t.id === response.id ? { ...t, isCompleted: response.isCompleted } : t,
+                      ),
+                    })),
+                  error: () =>
+                    patchState(store, { error: { message: textLiterals.UpdateStatusFailure } }),
                   finalize: () => patchState(store, { inProgress: false }),
                 }),
               );

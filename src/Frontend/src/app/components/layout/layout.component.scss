@@ -28,12 +28,14 @@
   }
 
   .progress-bar {
+    position: absolute;
+    bottom: 0;
     width: 100%;
 
     @include mat.progress-bar-overrides(
       (
-        active-indicator-height: 2px,
-        track-height: 2px,
+        active-indicator-height: 3px,
+        track-height: 3px,
       )
     );
   }

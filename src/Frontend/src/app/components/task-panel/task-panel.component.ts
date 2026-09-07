@@ -1,5 +1,5 @@
 import { formatDate } from "@angular/common";
-import { Component, computed, inject, model } from "@angular/core";
+import { Component, computed, inject, model, OnChanges, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
@@ -15,12 +15,14 @@ import { AppStore } from "../../store/app.store";
   styleUrl: "./task-panel.component.scss",
   templateUrl: "./task-panel.component.html",
 })
-export class TaskPanel {
+export class TaskPanel implements OnChanges {
   public task = model.required<Task>();
 
   protected readonly store = inject(AppStore);
 
   protected textLiterals = inject(TextLiteralsService);
+
+  protected changeInProgress = signal(false);
 
   protected createdAt = computed(() =>
     formatDate(this.task().createdAt, "yyyy-MM-dd HH:mm:ss", "en-GB"),
@@ -28,12 +30,19 @@ export class TaskPanel {
 
   protected done = computed(() => this.task().isCompleted);
 
+  protected toggleDisabled = computed(() => this.changeInProgress());
+
+  protected editDisabled = computed(() => this.done() || this.changeInProgress());
+
+  protected deleteDisabled = computed(() => this.done() || this.changeInProgress());
+
   protected status = computed(() =>
     this.task().isCompleted ? this.textLiterals.TaskStatusDone : this.textLiterals.TaskStatusActive,
   );
 
   protected toggleStatus() {
-    this.task.update((t) => ({ ...t, isCompleted: !t.isCompleted }));
+    this.changeInProgress.set(true);
+    this.store.toggleCompletionStatus(this.task());
   }
 
   protected editTask(): void {
@@ -42,5 +51,9 @@ export class TaskPanel {
 
   protected deleteTask(): void {
     this.store.notify(this.textLiterals.NotImplemented);
+  }
+
+  ngOnChanges(): void {
+    this.changeInProgress.set(false);
   }
 }
