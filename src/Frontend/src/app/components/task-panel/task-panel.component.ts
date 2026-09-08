@@ -1,13 +1,29 @@
 import { formatDate } from "@angular/common";
-import { Component, computed, inject, model } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  Injector,
+  model,
+  OnChanges,
+  signal,
+} from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
+import { MatDialog } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIcon } from "@angular/material/icon";
 import { Task } from "../../models/task.model";
 import { TextLiteralsService } from "../../services/text-literals.service";
 import { AppStore } from "../../store/app.store";
+import {
+  ConfirmDeleteDialogComponent,
+  ConfirmDeleteDialogData,
+} from "../confirm-delete-dialog/confirm-delete-dialog.component";
+import { EditDialogComponent, EditDialogData } from "../edit-dialog/edit-dialog.component";
 
 @Component({
   imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIcon, MatChipsModule],
@@ -15,32 +31,101 @@ import { AppStore } from "../../store/app.store";
   styleUrl: "./task-panel.component.scss",
   templateUrl: "./task-panel.component.html",
 })
-export class TaskPanel {
-  public task = model.required<Task>();
+export class TaskPanel implements OnChanges {
+  private readonly _injector = inject(Injector);
 
-  protected readonly store = inject(AppStore);
+  private readonly _dialog = inject(MatDialog);
 
-  protected textLiterals = inject(TextLiteralsService);
+  task = model.required<Task>();
 
-  protected createdAt = computed(() =>
-    formatDate(this.task().createdAt, "yyyy-MM-dd HH:mm:ss", "en-GB"),
-  );
+  readonly store = inject(AppStore);
 
-  protected done = computed(() => this.task().isCompleted);
+  readonly textLiterals = inject(TextLiteralsService);
 
-  protected status = computed(() =>
+  changeInProgress = signal(false);
+
+  createdAt = computed(() => formatDate(this.task().createdAt, "yyyy-MM-dd HH:mm:ss", "en-GB"));
+
+  done = computed(() => this.task().isCompleted);
+
+  toggleDisabled = computed(() => this.changeInProgress());
+
+  editDisabled = computed(() => this.done() || this.changeInProgress());
+
+  deleteDisabled = computed(() => this.done() || this.changeInProgress());
+
+  status = computed(() =>
     this.task().isCompleted ? this.textLiterals.TaskStatusDone : this.textLiterals.TaskStatusActive,
   );
 
-  protected toggleStatus() {
-    this.task.update((t) => ({ ...t, isCompleted: !t.isCompleted }));
+  toggleStatus() {
+    this.changeInProgress.set(true);
+    this.store.toggleCompletionStatus(this.task());
   }
 
-  protected editTask(): void {
-    this.store.notify(this.textLiterals.NotImplemented);
+  editTask(): void {
+    const editDialog = this._dialog.open<EditDialogComponent, EditDialogData, Task>(
+      EditDialogComponent,
+      {
+        data: { task: this.task() },
+        disableClose: true,
+        autoFocus: "dialog",
+        height: "30rem",
+        width: "30rem",
+      },
+    );
+
+    const editedTaskSignal = toSignal(editDialog.afterClosed(), {
+      initialValue: null,
+      injector: this._injector,
+    });
+
+    effect(
+      () => {
+        const editedTask = editedTaskSignal();
+        if (editedTask) {
+          this.changeInProgress.set(true);
+          this.store.update(editedTask);
+        }
+      },
+      { injector: this._injector },
+    );
   }
 
-  protected deleteTask(): void {
-    this.store.notify(this.textLiterals.NotImplemented);
+  deleteTask(): void {
+    const confirmDialog = this._dialog.open<
+      ConfirmDeleteDialogComponent,
+      ConfirmDeleteDialogData,
+      boolean
+    >(ConfirmDeleteDialogComponent, {
+      data: {
+        dialogTitle: this.textLiterals.ConfirmTaskDeleteTitle,
+        dialogMessage: this.textLiterals.ConfirmTaskDeleteContent,
+        itemToDelete: this.task().title,
+      },
+      disableClose: true,
+      autoFocus: "dialog",
+      height: "15rem",
+      width: "25rem",
+    });
+
+    const confirmed = toSignal(confirmDialog.afterClosed(), {
+      initialValue: null,
+      injector: this._injector,
+    });
+
+    effect(
+      () => {
+        if (confirmed()) {
+          this.changeInProgress.set(true);
+          this.store.delete(this.task());
+        }
+      },
+      { injector: this._injector },
+    );
+  }
+
+  ngOnChanges(): void {
+    this.changeInProgress.set(false);
   }
 }

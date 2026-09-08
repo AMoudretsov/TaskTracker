@@ -1,0 +1,51 @@
+@use "@angular/material" as mat;
+
+.title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  background-color: var(--mat-sys-error);
+  color: var(--mat-sys-on-error);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+
+  padding: 1rem 0;
+
+  .message {
+    font-size: 0.9rem;
+  }
+
+  .name {
+    font-size: 1.15rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.cancel-button {
+  @include mat.button-overrides(
+    (
+      text-horizontal-padding: 0.5rem,
+    )
+  );
+}
+
+.delete-button {
+  @include mat.button-overrides(
+    (
+      text-horizontal-padding: 0.5rem,
+      text-label-text-color: var(--mat-sys-error),
+      text-ripple-color: color-mix(in srgb, var(--mat-sys-error) calc(var(--mat-sys-pressed-state-layer-opacity) * 100%), transparent),
+      text-state-layer-color: var(--mat-sys-error),
+      text-hover-state-layer-opacity: 0.15,
+    )
+  );
+}

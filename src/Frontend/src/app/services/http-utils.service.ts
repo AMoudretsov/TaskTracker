@@ -5,9 +5,9 @@ type Query = Record<string, any>;
 
 @Service()
 export class HttpUtilsService {
-  public buildHttpParams(query?: Query, defaults?: Query): HttpParams {
+  buildHttpParams(query?: Query, defaults?: Query): HttpParams {
     if (defaults) {
-      query = this._mergeDefaults(query, defaults);
+      query = this.mergeDefaults(query, defaults);
     }
 
     let params = new HttpParams();
@@ -25,7 +25,7 @@ export class HttpUtilsService {
     return params;
   }
 
-  private _mergeDefaults(values?: Query, defaults?: Query): Query {
+  private mergeDefaults(values?: Query, defaults?: Query): Query {
     values ??= {};
     defaults ??= {};
 

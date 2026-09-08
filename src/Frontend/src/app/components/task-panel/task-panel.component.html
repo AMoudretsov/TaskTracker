@@ -4,7 +4,7 @@
       <div class="title-container">
         <div [class.done]="done()" class="title">{{task().title}}</div>
         <div class="title-actions">
-          <button (click)="toggleStatus()" class="toggle-action" matIconButton>
+          <button [disabled]="toggleDisabled()" (click)="toggleStatus()" class="toggle-action" matIconButton>
             @if(done()) {
               <mat-icon>toggle_on</mat-icon>
             }
@@ -12,10 +12,10 @@
               <mat-icon>toggle_off</mat-icon>
             }
           </button>
-          <button [disabled]="done()" (click)="editTask()" class="edit-action" matIconButton>
+          <button [disabled]="editDisabled()" (click)="editTask()" class="edit-action" matIconButton>
             <mat-icon>edit</mat-icon>
           </button>
-          <button [disabled]="done()" (click)="deleteTask()" class="delete-action" matIconButton>
+          <button [disabled]="deleteDisabled()" (click)="deleteTask()" class="delete-action" matIconButton>
             <mat-icon>delete</mat-icon>
           </button>
         </div>

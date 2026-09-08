@@ -12,17 +12,17 @@ import { TaskPanel } from "../task-panel/task-panel.component";
 export class TasksFeedComponent implements AfterViewInit, OnDestroy {
   private _intersectionObserver!: IntersectionObserver;
 
-  protected readonly store = inject(AppStore);
+  readonly store = inject(AppStore);
 
-  protected readonly textLiterals = inject(TextLiteralsService);
+  readonly textLiterals = inject(TextLiteralsService);
 
-  protected nextPageIndicator = viewChild<ElementRef>("nextPageIndicator");
+  nextPageIndicator = viewChild<ElementRef>("nextPageIndicator");
 
-  public ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     this.initIntersectionObserver();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this._intersectionObserver?.disconnect();
   }
 

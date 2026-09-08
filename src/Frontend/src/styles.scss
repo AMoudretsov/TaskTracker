@@ -36,9 +36,33 @@ body {
   .popup-message-error {
     @include mat.snack-bar-overrides(
       (
-        container-color: color-mix(in srgb, var(--mat-sys-error) 85%, transparent),
+        container-color: color-mix(in srgb, var(--mat-sys-error) 90%, transparent),
         supporting-text-color: var(--mat-sys-on-error),
       )
     );
+  }
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: var(--mat-sys-corner-small),
+      headline-padding: 0.5rem 1.5rem 0.5rem,
+      supporting-text-color: var(--tt-text-color),
+      subhead-line-height: 1.3rem,
+      subhead-size: 1.3rem,
+      subhead-weight: 500,
+    )
+  );
+
+  .tt-textarea-field-auto-grow {
+    .mat-mdc-form-field-flex,
+    .mat-mdc-form-field-infix {
+      height: 100%;
+
+      textarea {
+        height: 100%;
+        overflow: hidden;
+        resize: none;
+      }
+    }
   }
 }

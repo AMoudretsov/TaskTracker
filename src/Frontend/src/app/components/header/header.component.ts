@@ -26,19 +26,19 @@ interface SearchModel {
   templateUrl: "./header.component.html",
 })
 export class HeaderComponent {
-  protected readonly store = inject(AppStore);
+  readonly store = inject(AppStore);
 
-  protected readonly textLiterals = inject(TextLiteralsService);
+  readonly textLiterals = inject(TextLiteralsService);
 
-  protected searchModel = signal<SearchModel>({ searchTerm: this.store.searchTerm() });
-  protected searchForm = form(this.searchModel);
-  protected searchTerm = computed(() => this.searchModel().searchTerm);
+  searchModel = signal<SearchModel>({ searchTerm: this.store.searchTerm() });
+  searchForm = form(this.searchModel);
+  searchTerm = computed(() => this.searchModel().searchTerm);
 
   constructor() {
     this.store.search(this.searchTerm);
   }
 
-  protected addTask(): void {
+  addTask(): void {
     this.store.notify(this.textLiterals.NotImplemented);
   }
 }

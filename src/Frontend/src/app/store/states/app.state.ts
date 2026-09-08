@@ -1,6 +1,6 @@
-import { Task } from "../models/task.model";
-import { ErrorState } from "./error-state.model";
-import { PagingState } from "./paging-state.model";
+import { Task } from "../../models/task.model";
+import { ErrorState } from "./error.state";
+import { PagingState } from "./paging.state";
 
 export interface AppState {
   tasks: Task[];
