@@ -66,7 +66,7 @@ public partial class ListTasksHandler(
             t => t.CreatedAt,
             cancelToken);
 
-        return task => task.CreatedAt > cursorCreatedAt
+        return task => task.CreatedAt < cursorCreatedAt
             || (task.CreatedAt == cursorCreatedAt && task.Id > cursor.Value);
     }
 }

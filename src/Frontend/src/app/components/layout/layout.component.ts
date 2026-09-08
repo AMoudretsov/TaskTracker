@@ -3,7 +3,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { BrowserService } from "../../services/browser.service";
 import { AppStore } from "../../store/app.store";
-import { PopupMessageComponent } from "../popup-message/popup-message.component";
+import { PopupMessageComponent, PopupMessageData } from "../popup-message/popup-message.component";
 
 @Component({
   imports: [MatProgressBarModule],
@@ -18,14 +18,17 @@ export class LayoutComponent implements OnInit {
   readonly store = inject(AppStore);
 
   readonly notifications = effect(() => {
-    var error = this.store.error();
-    if (error) {
-      this._snackBar.openFromComponent(PopupMessageComponent, {
-        data: { message: error.message },
-        duration: 5000,
-        horizontalPosition: "end",
-        panelClass: ["popup-message-error"],
-      });
+    var alert = this.store.alert();
+    if (alert) {
+      this._snackBar.openFromComponent<PopupMessageComponent, PopupMessageData>(
+        PopupMessageComponent,
+        {
+          data: { alert },
+          duration: 5000,
+          horizontalPosition: "end",
+          panelClass: PopupMessageComponent.popupPanelClasses(alert),
+        },
+      );
     }
   });
 

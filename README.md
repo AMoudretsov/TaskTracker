@@ -66,6 +66,3 @@ npm start
 #### 7. Open UI in browser:
 
 Access UI by standard URL for Angular apps in dev environment: [http://localhost:4200](http://localhost:4200). Dev server proxies API requests and forwards them to [https://localhost:5443/api](https://localhost:5443/api), so there should be no CORS issues.
-
-> [!WARNING]
-> Add task action is not implemented yet. It will be done soon.

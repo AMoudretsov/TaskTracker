@@ -6,7 +6,7 @@ import { concatMap, pipe, tap } from "rxjs";
 import { TasksService } from "../../services/tasks.service";
 import { TextLiteralsService } from "../../services/text-literals.service";
 import { AppState } from "../states/app.state";
-import { appendTasks, setError, setInProgress, setPaging } from "./setters";
+import { appendTasks, errorAlert, setInProgress, setPaging } from "./setters";
 
 export const withTaskLoadNextPage = () =>
   signalStoreFeature(
@@ -27,7 +27,7 @@ export const withTaskLoadNextPage = () =>
                   tapResponse({
                     next: (response) =>
                       patchState(store, appendTasks(response.items), setPaging(response.paging)),
-                    error: () => patchState(store, setError(textLiterals.SearchFailure)),
+                    error: () => patchState(store, errorAlert(textLiterals.SearchFailure)),
                     finalize: () => patchState(store, setInProgress(false)),
                   }),
                 );
