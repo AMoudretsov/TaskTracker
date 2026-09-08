@@ -19,7 +19,11 @@ import { MatIcon } from "@angular/material/icon";
 import { Task } from "../../models/task.model";
 import { TextLiteralsService } from "../../services/text-literals.service";
 import { AppStore } from "../../store/app.store";
-import { ConfirmDeleteDialogComponent } from "../confirm-delete-dialog/confirm-delete-dialog.component";
+import {
+  ConfirmDeleteDialogComponent,
+  ConfirmDeleteDialogData,
+} from "../confirm-delete-dialog/confirm-delete-dialog.component";
+import { EditDialogComponent, EditDialogData } from "../edit-dialog/edit-dialog.component";
 
 @Component({
   imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIcon, MatChipsModule],
@@ -60,18 +64,46 @@ export class TaskPanel implements OnChanges {
   }
 
   editTask(): void {
-    this.store.notify(this.textLiterals.NotImplemented);
+    const editDialog = this._dialog.open<EditDialogComponent, EditDialogData, Task>(
+      EditDialogComponent,
+      {
+        data: { task: this.task() },
+        disableClose: true,
+        autoFocus: "dialog",
+        height: "30rem",
+        width: "30rem",
+      },
+    );
+
+    const editedTaskSignal = toSignal(editDialog.afterClosed(), {
+      initialValue: null,
+      injector: this._injector,
+    });
+
+    effect(
+      () => {
+        const editedTask = editedTaskSignal();
+        if (editedTask) {
+          this.changeInProgress.set(true);
+          this.store.update(editedTask);
+        }
+      },
+      { injector: this._injector },
+    );
   }
 
   deleteTask(): void {
-    const confirmDialog = this._dialog.open(ConfirmDeleteDialogComponent, {
+    const confirmDialog = this._dialog.open<
+      ConfirmDeleteDialogComponent,
+      ConfirmDeleteDialogData,
+      boolean
+    >(ConfirmDeleteDialogComponent, {
       data: {
         dialogTitle: this.textLiterals.ConfirmTaskDeleteTitle,
         dialogMessage: this.textLiterals.ConfirmTaskDeleteContent,
         itemToDelete: this.task().title,
       },
       disableClose: true,
-      panelClass: ["confirm-delete-dialog"],
       autoFocus: "dialog",
       height: "15rem",
       width: "25rem",

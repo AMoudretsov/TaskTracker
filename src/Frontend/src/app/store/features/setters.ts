@@ -8,6 +8,10 @@ export const appendTasks = (tasks: Task[]) => (state: AppState) => ({
   tasks: [...state.tasks, ...(tasks ?? [])],
 });
 
+export const setTask = (task: Task) => (state: AppState) => ({
+  tasks: state.tasks.map((t) => (t.id === task.id ? { ...task } : t)),
+});
+
 export const setTaskCompletionStatus = (task: Task) => (state: AppState) => ({
   tasks: state.tasks.map((t) => (t.id === task.id ? { ...t, isCompleted: task.isCompleted } : t)),
 });

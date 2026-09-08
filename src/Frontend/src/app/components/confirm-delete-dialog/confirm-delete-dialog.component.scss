@@ -30,10 +30,18 @@
   }
 }
 
+.cancel-button {
+  @include mat.button-overrides(
+    (
+      text-horizontal-padding: 0.5rem,
+    )
+  );
+}
+
 .delete-button {
   @include mat.button-overrides(
     (
-      text-horizontal-padding: 1rem,
+      text-horizontal-padding: 0.5rem,
       text-label-text-color: var(--mat-sys-error),
       text-ripple-color: color-mix(in srgb, var(--mat-sys-error) calc(var(--mat-sys-pressed-state-layer-opacity) * 100%), transparent),
       text-state-layer-color: var(--mat-sys-error),

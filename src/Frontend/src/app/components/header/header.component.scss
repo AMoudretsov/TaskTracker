@@ -22,7 +22,7 @@
     (
       leading-icon-color: var(--tt-text-color),
       outlined-caret-color: var(--tt-text-color),
-      outlined-container-shape: 16px,
+      outlined-container-shape: var(--mat-sys-corner-large),
       outlined-hover-outline-color: var(--mat-sys-primary),
       outlined-input-text-color: var(--tt-text-color),
       outlined-input-text-placeholder-color: var(--tt-input-placeholder-color),

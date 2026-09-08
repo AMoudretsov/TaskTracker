@@ -3,7 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MAT_DIALOG_DATA, MatDialogModule } from "@angular/material/dialog";
 import { TextLiteralsService } from "../../services/text-literals.service";
 
-export interface ConfirmDeleteDialogInput {
+export interface ConfirmDeleteDialogData {
   dialogTitle: string;
   dialogMessage: string;
   itemToDelete: string;
@@ -18,5 +18,5 @@ export interface ConfirmDeleteDialogInput {
 export class ConfirmDeleteDialogComponent {
   readonly textLiterals = inject(TextLiteralsService);
 
-  readonly dialogInput = inject<ConfirmDeleteDialogInput>(MAT_DIALOG_DATA);
+  readonly data = inject<ConfirmDeleteDialogData>(MAT_DIALOG_DATA);
 }

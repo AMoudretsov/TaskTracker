@@ -53,7 +53,16 @@ body {
     )
   );
 
-  .confirm-delete-dialog {
-    @include mat.dialog-overrides(());
+  .tt-textarea-field-auto-grow {
+    .mat-mdc-form-field-flex,
+    .mat-mdc-form-field-infix {
+      height: 100%;
+
+      textarea {
+        height: 100%;
+        overflow: hidden;
+        resize: none;
+      }
+    }
   }
 }

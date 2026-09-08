@@ -6,6 +6,7 @@ import { withTaskLoadNextPage } from "./features/load-next-page";
 import { withNotify } from "./features/notify";
 import { withTaskSearch } from "./features/search";
 import { withTaskToggleCompletionStatus } from "./features/toggle-completion-status";
+import { withTaskUpdate } from "./features/update";
 import { AppState } from "./states/app.state";
 
 const initialState: AppState = {
@@ -22,6 +23,7 @@ export const AppStore = signalStore(
   withTaskSearch(),
   withTaskLoadNextPage(),
   withTaskToggleCompletionStatus(),
+  withTaskUpdate(),
   withTaskDelete(),
   withNotify(),
   withComputed(({ inProgress, paging }) => ({
