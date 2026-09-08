@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, pipe, switchMap, tap } from "rxjs";
 import { TasksService } from "../../services/tasks.service";
 import { TextLiteralsService } from "../../services/text-literals.service";
 import { AppState } from "../states/app.state";
-import { setError, setInProgress, setPaging, setSearchTerm, setTasks } from "./setters";
+import { errorAlert, setInProgress, setPaging, setSearchTerm, setTasks } from "./setters";
 
 export const withTaskSearch = () =>
   signalStoreFeature(
@@ -25,7 +25,7 @@ export const withTaskSearch = () =>
                   tapResponse({
                     next: (response) =>
                       patchState(store, setTasks(response.items), setPaging(response.paging)),
-                    error: () => patchState(store, setError(textLiterals.SearchFailure)),
+                    error: () => patchState(store, errorAlert(textLiterals.SearchFailure)),
                     finalize: () => patchState(store, setInProgress(false)),
                   }),
                 );

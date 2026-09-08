@@ -1,9 +1,9 @@
 import { computed, inject } from "@angular/core";
 import { signalStore, withComputed, withState } from "@ngrx/signals";
 import { TextLiteralsService } from "../services/text-literals.service";
+import { withTaskCreate } from "./features/create";
 import { withTaskDelete } from "./features/delete";
 import { withTaskLoadNextPage } from "./features/load-next-page";
-import { withNotify } from "./features/notify";
 import { withTaskSearch } from "./features/search";
 import { withTaskToggleCompletionStatus } from "./features/toggle-completion-status";
 import { withTaskUpdate } from "./features/update";
@@ -14,7 +14,7 @@ const initialState: AppState = {
   inProgress: false,
   searchTerm: "",
   paging: { limit: 10, cursor: null, hasMore: false },
-  error: null,
+  alert: null,
   tabTitle: "",
 };
 
@@ -23,9 +23,9 @@ export const AppStore = signalStore(
   withTaskSearch(),
   withTaskLoadNextPage(),
   withTaskToggleCompletionStatus(),
+  withTaskCreate(),
   withTaskUpdate(),
   withTaskDelete(),
-  withNotify(),
   withComputed(({ inProgress, paging }) => ({
     canLoadNextPage: computed(() => !inProgress() && paging.hasMore()),
   })),

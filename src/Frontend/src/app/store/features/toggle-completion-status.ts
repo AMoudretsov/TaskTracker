@@ -7,7 +7,7 @@ import { Task } from "../../models/task.model";
 import { TasksService } from "../../services/tasks.service";
 import { TextLiteralsService } from "../../services/text-literals.service";
 import { AppState } from "../states/app.state";
-import { setError, setInProgress, setTaskCompletionStatus } from "./setters";
+import { errorAlert, setInProgress, setTaskCompletionStatus } from "./setters";
 
 export const withTaskToggleCompletionStatus = () =>
   signalStoreFeature(
@@ -26,7 +26,7 @@ export const withTaskToggleCompletionStatus = () =>
                 .pipe(
                   tapResponse({
                     next: (response) => patchState(store, setTaskCompletionStatus(response)),
-                    error: () => patchState(store, setError(textLiterals.UpdateStatusFailure)),
+                    error: () => patchState(store, errorAlert(textLiterals.UpdateStatusFailure)),
                     finalize: () => patchState(store, setInProgress(false)),
                   }),
                 );

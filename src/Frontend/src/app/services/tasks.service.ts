@@ -19,6 +19,10 @@ export class TasksService {
     return this._api.get<ListResponse<Task>>("/tasks", { params });
   }
 
+  createTask(task: Task): Observable<Task> {
+    return this._api.post<Task>(`/tasks`, task);
+  }
+
   updateTask(task: Task): Observable<Task> {
     return this._api.put<Task>(`/tasks/${task.id}`, task);
   }

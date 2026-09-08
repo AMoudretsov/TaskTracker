@@ -1,5 +1,5 @@
 import { Task } from "../../models/task.model";
-import { ErrorState } from "./error.state";
+import { AlertState } from "./alert.state";
 import { PagingState } from "./paging.state";
 
 export interface AppState {
@@ -7,6 +7,6 @@ export interface AppState {
   inProgress: boolean;
   searchTerm: string;
   paging: PagingState;
-  error: ErrorState | null;
+  alert: AlertState | null;
   tabTitle: string;
 }

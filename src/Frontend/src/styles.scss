@@ -33,6 +33,15 @@ body {
     )
   );
 
+  .popup-message-info {
+    @include mat.snack-bar-overrides(
+      (
+        container-color: color-mix(in srgb, purple 90%, transparent),
+        supporting-text-color: var(--mat-sys-on-primary),
+      )
+    );
+  }
+
   .popup-message-error {
     @include mat.snack-bar-overrides(
       (

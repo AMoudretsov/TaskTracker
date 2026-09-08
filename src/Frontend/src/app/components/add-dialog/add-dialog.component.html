@@ -1,0 +1,33 @@
+<h2 class="title" mat-dialog-title>{{textLiterals.AddTaskTitle}}</h2>
+
+<mat-dialog-content>
+  <div class="content">
+    <mat-form-field>
+      <mat-label>{{textLiterals.TitleField}}</mat-label>
+      <input [formField]="addForm.title" placeholder="{{textLiterals.TitleFieldPlaceholder}}" autocomplete="off" matInput />
+      @if (addForm.title().invalid() && addForm.title().touched()) {
+        <mat-error>
+          @for (error of addForm.title().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="description-field tt-textarea-field-auto-grow">
+      <mat-label>{{textLiterals.DescriptionField}}</mat-label>
+      <textarea [formField]="addForm.description" placeholder="{{textLiterals.DescriptionFieldPlaceholder}}" autocomplete="off" class="description" matInput></textarea>
+      @if (addForm.description().invalid() && addForm.description().touched()) {
+        <mat-error>
+          @for (error of addForm.description().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button [mat-dialog-close]="null" class="action-button" matButton>{{textLiterals.Cancel}}</button>
+  <button [mat-dialog-close]="addTask()" [disabled]="hasErrors()" class="action-button" matButton>{{textLiterals.Save}}</button>
+</mat-dialog-actions>

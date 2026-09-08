@@ -71,7 +71,7 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity> where
         if (keySelector is not null)
         {
             qry = qry
-                .OrderBy(keySelector)
+                .OrderByDescending(keySelector)
                 .ThenBy(entity => entity.Id);
         }
         else
